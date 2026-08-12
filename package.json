@@ -1,0 +1,16 @@
+{
+  "name": "buysmart-monorepo",
+  "version": "1.0.0",
+  "description": "BuySmart Full-Stack E-Commerce Application",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node run-dev.js",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "seed": "npm --prefix backend run seed",
+    "seed:destroy": "npm --prefix backend run seed:destroy",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix backend start"
+  }
+}

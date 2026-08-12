@@ -1,0 +1,35 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dev:backend",
+      "isBackground": true,
+      "problemMatcher": [],
+      "label": "Run Backend API Server",
+      "detail": "Starts Express backend server with nodemon on port 5000"
+    },
+    {
+      "type": "npm",
+      "script": "dev:frontend",
+      "isBackground": true,
+      "problemMatcher": [],
+      "label": "Run Frontend Dev Server",
+      "detail": "Starts Vite dev server on http://localhost:5173"
+    },
+    {
+      "type": "npm",
+      "script": "seed",
+      "problemMatcher": [],
+      "label": "Seed Database (Demo Catalog & Accounts)",
+      "detail": "Populates MongoDB with products and demo accounts"
+    },
+    {
+      "type": "npm",
+      "script": "build",
+      "problemMatcher": [],
+      "label": "Build Frontend Production Bundle",
+      "detail": "Compiles Vite frontend to dist directory"
+    }
+  ]
+}

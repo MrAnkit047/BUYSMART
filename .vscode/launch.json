@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Backend API (Node.js)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev:backend"],
+      "port": 9229,
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Debug Frontend App (Chrome)",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/frontend/src",
+      "sourceMaps": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Full-Stack Dev & Debug (Backend + Frontend)",
+      "configurations": ["Debug Backend API (Node.js)", "Debug Frontend App (Chrome)"],
+      "stopAll": true
+    }
+  ]
+}
