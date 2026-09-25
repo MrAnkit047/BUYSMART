@@ -12,14 +12,26 @@ const npmCmd = isWin ? "npm.cmd" : "npm";
 
 const backend = spawn(npmCmd, ["run", "dev"], {
   cwd: path.join(__dirname, "backend"),
-  stdio: "inherit",
-  shell: true,
+  shell: isWin,
+});
+
+backend.stdout?.on("data", (data) => {
+  process.stdout.write(`[backend] ${data}`);
+});
+backend.stderr?.on("data", (data) => {
+  process.stderr.write(`[backend] ${data}`);
 });
 
 const frontend = spawn(npmCmd, ["run", "dev"], {
   cwd: path.join(__dirname, "frontend"),
-  stdio: "inherit",
-  shell: true,
+  shell: isWin,
+});
+
+frontend.stdout?.on("data", (data) => {
+  process.stdout.write(`[frontend] ${data}`);
+});
+frontend.stderr?.on("data", (data) => {
+  process.stderr.write(`[frontend] ${data}`);
 });
 
 const cleanup = () => {
@@ -30,3 +42,4 @@ const cleanup = () => {
 
 process.on("SIGINT", cleanup);
 process.on("SIGTERM", cleanup);
+

@@ -93,7 +93,7 @@ const AdminLogin = () => {
             disabled={submitting}
             className="w-full rounded-xl bg-accent py-3 font-semibold text-inkdark transition hover:bg-accentdark disabled:opacity-60"
           >
-            {submitting ? "Authenticating…" : "Sign In to Admin Panel"}
+            {submitting ? "Signing in to Admin Panel…" : "Log In Directly as Admin"}
           </button>
         </form>
 

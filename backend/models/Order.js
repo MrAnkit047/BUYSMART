@@ -39,6 +39,14 @@ const orderSchema = new mongoose.Schema(
     totalPrice: { type: Number, required: true, default: 0 },
     isPaid: { type: Boolean, default: false },
     paidAt: Date,
+    paymentResult: {
+      id: String,
+      status: String,
+      gateway: String, // 'eSewa' | 'Khalti' | 'FonePay'
+      referenceId: String,
+      updateTime: String,
+      rawResponse: mongoose.Schema.Types.Mixed,
+    },
     isDelivered: { type: Boolean, default: false },
     deliveredAt: Date,
     status: {

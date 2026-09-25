@@ -48,6 +48,10 @@ const userSchema = new mongoose.Schema(
     isAdmin: { type: Boolean, default: false },
     customerId: { type: String, unique: true, sparse: true },
     address: addressSchema,
+    loginOtp: { type: String, select: false },
+    loginOtpExpire: { type: Date, select: false },
+    resetPasswordOtp: { type: String, select: false },
+    resetPasswordExpire: { type: Date, select: false },
   },
   { timestamps: true }
 );

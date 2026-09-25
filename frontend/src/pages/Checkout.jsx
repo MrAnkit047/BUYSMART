@@ -54,7 +54,11 @@ const Checkout = () => {
         paymentMethod,
       });
       clearCart();
-      navigate(`/orders/${data._id}`);
+      const redirectUrl =
+        paymentMethod === "Cash on Delivery"
+          ? `/orders/${data._id}`
+          : `/orders/${data._id}?payNow=${paymentMethod}`;
+      navigate(redirectUrl);
     } catch (err) {
       setError(err.response?.data?.message || "Could not place order");
     } finally {
@@ -149,28 +153,82 @@ const Checkout = () => {
           <div className="rounded-2xl border border-ink/8 bg-white p-6 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
               <CreditCard className="h-5 w-5 text-teal" />
-              <h2 className="font-display text-lg font-semibold text-ink">Select Payment Option</h2>
+              <h2 className="font-display text-lg font-semibold text-ink">Select Nepal Payment Option</h2>
             </div>
-            <div className="space-y-3">
-              {["Cash on Delivery", "eSewa / Khalti / Mobile Banking", "Credit / Debit Card"].map((m) => (
-                <label
-                  key={m}
-                  className="flex items-center gap-3 rounded-xl border border-ink/10 p-4 text-sm font-medium transition cursor-pointer has-[:checked]:border-teal has-[:checked]:bg-teal/5"
-                >
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value={m}
-                    checked={paymentMethod === m}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="accent-teal"
-                  />
-                  {m}
-                </label>
-              ))}
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                {
+                  id: "eSewa",
+                  name: "eSewa Mobile Wallet",
+                  badge: "ePay v2",
+                  badgeClass: "bg-emerald-600 text-white",
+                  desc: "Direct payment with eSewa ID & credentials",
+                  icon: "🟢",
+                },
+                {
+                  id: "Khalti",
+                  name: "Khalti Digital Wallet",
+                  badge: "Khalti Pay",
+                  badgeClass: "bg-purple-600 text-white",
+                  desc: "Pay via Khalti app, web, or mobile banking",
+                  icon: "🟣",
+                },
+                {
+                  id: "FonePay",
+                  name: "FonePay / All Banks QR",
+                  badge: "Dynamic QR",
+                  badgeClass: "bg-rose-600 text-white",
+                  desc: "Scan with any Nepali bank app or mobile wallet",
+                  icon: "🔴",
+                },
+                {
+                  id: "Cash on Delivery",
+                  name: "Cash on Delivery (COD)",
+                  badge: "Doorstep",
+                  badgeClass: "bg-neutral-600 text-white",
+                  desc: "Pay cash when your order arrives at your door",
+                  icon: "💵",
+                },
+              ].map((opt) => {
+                const isSelected = paymentMethod === opt.id;
+                return (
+                  <label
+                    key={opt.id}
+                    className={`relative flex flex-col justify-between rounded-xl border-2 p-4 cursor-pointer transition ${
+                      isSelected
+                        ? "border-teal bg-teal/5 shadow-sm"
+                        : "border-ink/10 bg-white hover:border-ink/20"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-xl">{opt.icon}</span>
+                        <div>
+                          <div className="font-semibold text-sm text-ink">{opt.name}</div>
+                          <div className="text-xs text-ink/50 mt-0.5">{opt.desc}</div>
+                        </div>
+                      </div>
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        value={opt.id}
+                        checked={isSelected}
+                        onChange={(e) => setPaymentMethod(e.target.value)}
+                        className="accent-teal h-4 w-4 mt-0.5"
+                      />
+                    </div>
+                    <div className="mt-3 flex items-center justify-between border-t border-ink/5 pt-2 text-[11px]">
+                      <span className="font-medium text-ink/60">Gateway status</span>
+                      <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${opt.badgeClass}`}>
+                        {opt.badge}
+                      </span>
+                    </div>
+                  </label>
+                );
+              })}
             </div>
-            <p className="mt-3 text-xs text-ink/40">
-              Demo Checkout Mode — Order will be saved under your account profile.
+            <p className="mt-4 text-xs text-ink/40">
+              🔒 All transactions are secured through standard encryption and verified directly with payment providers.
             </p>
           </div>
         </div>
