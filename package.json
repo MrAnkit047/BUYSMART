@@ -10,7 +10,7 @@
     "dev:frontend": "npm --prefix frontend run dev",
     "seed": "npm --prefix backend run seed",
     "seed:destroy": "npm --prefix backend run seed:destroy",
-    "build": "npm --prefix frontend run build",
+    "build": "npm --prefix frontend install && npm --prefix frontend run build",
     "start": "npm --prefix backend start"
   }
 }
